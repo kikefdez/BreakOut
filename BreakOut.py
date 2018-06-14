@@ -23,7 +23,7 @@ def pausarJuego():
             if accion.type == pygame.KEYDOWN:
                 if accion.key == 32:
                     juegoPausado = False
-                pygame.display.update()
+        pygame.display.update()
 
 # Definimos las constantes de colores
 NEGRO = (0, 0, 0)
@@ -69,12 +69,15 @@ spLadrillo = pygame.sprite.Group()
 topLadrillo = 80
 # Generamos todos los cuadros del panel superior
 # 5 filas con 25 ladrillos cada una [600 / 24 = 25] siendo 24 = 23 del ancho del ladrillo + 1 de separación
-for fila in range(5):
-    for columna in range(0, 32):
-        valorLadrillo = Ladrillo(columna * 24, topLadrillo)
+totalColumnas = tableroJuego.get_width() / Ladrillo.getLargo()
+if(tableroJuego.get_width() % Ladrillo.getLargo() > 0):
+    totalColumnas += 1
+for fila in range(4):
+    for columna in range(0, int(totalColumnas)):
+        valorLadrillo = Ladrillo(fila, columna * Ladrillo.getLargo(), topLadrillo)
         spLadrillo.add(valorLadrillo)
         spTotal.add(valorLadrillo)
-    topLadrillo += 17
+    topLadrillo += Ladrillo.getAlto() 
 
 puntuacion = 0
 temporizador = 0
@@ -131,6 +134,7 @@ while not exitJuego:
     if len(bloquesRestantes) > 0:
         puntuacion += len(bloquesRestantes) * 10
         valorPelota.rebotar(0)
+            
     
     # Si ya no existen ladrillos significa que todos han sido eliminados y el juego ha terminado
     if len(spLadrillo) == 0:

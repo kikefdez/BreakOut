@@ -53,7 +53,6 @@ class Pelota(pygame.sprite.Sprite):
         self.altoTablero = pygame.display.get_surface().get_height()
         self.largoTablero = pygame.display.get_surface().get_width()
 
-
     def rebotar(self, diferencia):
         # Definimos el comportamiento que tendrá la pelota cuando se produzca un rebote bien en un ladrillo o bien en el portero
         self.direccion = (180 - self.direccion) % 360
