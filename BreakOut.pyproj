@@ -31,6 +31,9 @@
     <Compile Include="Portero.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SpriteSheet.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="breakout_sprites.png" />

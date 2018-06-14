@@ -23,7 +23,7 @@ def pausarJuego():
             if accion.type == pygame.KEYDOWN:
                 if accion.key == 32:
                     juegoPausado = False
-        pygame.display.update()
+                pygame.display.update()
 
 # Definimos las constantes de colores
 NEGRO = (0, 0, 0)

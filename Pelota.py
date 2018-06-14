@@ -1,12 +1,16 @@
 import pygame
 import math
+import random
+
+from SpriteSheet import *
+from Portero import *
 
 # Definimos constante de la velocidad en número de píxeles que avanza por cada ciclo
 VELOCIDAD = 10
 
 # Definimos las constantes de dimensiones de alto y largo que tendrá la pelota
-LARGO = 10
-ALTO = 10
+LARGO = 16
+ALTO = 16
 
 # Definimos la constante del color de relleno de la pelota
 BLANCO = (255, 255, 255)
@@ -22,15 +26,19 @@ class Pelota(pygame.sprite.Sprite):
     coordY = 180.0
      
     # Definimos la dirección (en grados) de la trayectoria de la pelota
-    direccion = 200
+    direccion = -45
 
     def __init__(self):
         # Invocamos al constructor de la clase padre para la inicialización [Sprite]
         super().__init__()
         # Definimos el objeto Pelota como una superficie de 10x10
         self.image = pygame.Surface([LARGO, ALTO])
+
         # Definimos el color de fondo del objeto Ladrillo
-        self.image.fill(BLANCO)
+        # self.image.fill(BLANCO)
+        sprites = SpriteSheet("breakout_sprites.png")
+        self.image = sprites.cargarImagen(160, 200, 16, 16 )
+
         # Obtenemos el rectangulo correspondiente al objeto con la configuración anterior
         self.rect = self.image.get_rect()
 
@@ -79,16 +87,18 @@ class Pelota(pygame.sprite.Sprite):
             self.direccion = (360 - self.direccion) % 360
             self.x = self.largoTablero - LARGO - 1
         # Comprobamos si la trayectoria supera el borde inferior de la pantalla - TouchDown
-        if self.coordY > 600:
+        if self.coordY > self.altoTablero - Portero.getAlto() / 2:
             return True
         else:
             return False
+
     def posicionar(self):
         posicionMouse = pygame.mouse.get_pos();
-        self.rect.x = posicionMouse[0] + 35
-        self.rect.y = self.altoTablero - 20
-        limite = self.largoTablero - 35
+        self.rect.x = posicionMouse[0] + (Portero.getLargo() / 2) - (LARGO / 2)
+        self.rect.y = self.altoTablero - Portero.getAlto() - ALTO
+        limite = self.largoTablero - (Portero.getLargo() / 2) - (LARGO / 2)
         if self.rect.x > limite:
             self.rect.x = limite
         self.coordX = self.rect.x
         self.coordY = self.rect.y
+        self.direccion = random.randint(-45, 45)

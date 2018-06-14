@@ -12,6 +12,11 @@ class Portero(pygame.sprite.Sprite):
     # Será necesario ir moviendo el portero para que la pelota rebote y así evitar
     # que esta supere la zona de TouchDown ya que se considerará que ha perdido una vida
 
+    def getLargo():
+        return LARGO
+    def getAlto():
+        return ALTO
+
     def __init__(self):
         # Invocamos al constructor de la clase padre para la inicialización [Sprite]
         super().__init__()
