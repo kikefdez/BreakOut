@@ -38,6 +38,7 @@
   <ItemGroup>
     <Content Include="breakout_sprites.png" />
     <Content Include="fondoB.png" />
+    <Content Include="fondoPortero.png" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

@@ -1,8 +1,9 @@
 import pygame
+from SpriteSheet import *
 
 # Definimos las constantes de dimensiones de alto y largo que tendrá el portero
-LARGO = 70
-ALTO = 10
+LARGO = 80
+ALTO = 20
 
 # Definimos la constante del color de relleno del portero
 BLANCO = (255, 255, 255)
@@ -20,10 +21,15 @@ class Portero(pygame.sprite.Sprite):
     def __init__(self):
         # Invocamos al constructor de la clase padre para la inicialización [Sprite]
         super().__init__()
-        # Definimos el objeto Portero como una superficie de 70x10
+        # Definimos el objeto Portero como una superficie de 80x20
         self.image = pygame.Surface([LARGO, ALTO])
         # Definimos el color de fondo del objeto Ladrillo
-        self.image.fill(BLANCO)
+        # self.image.fill(BLANCO)
+        # self.image.fill(BLANCO)
+        sprites = SpriteSheet("fondoPortero.png")
+        self.image = sprites.cargarImagen(0, 0, LARGO, ALTO)
+        self.image.set_colorkey(pygame.Color(0, 0, 0))
+
         # Obtenemos el rectangulo correspondiente al objeto con la configuración anterior
         self.rect = self.image.get_rect()
         
