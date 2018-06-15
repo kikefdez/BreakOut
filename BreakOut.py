@@ -40,6 +40,8 @@ fuenteJuego = pygame.font.Font(None, 36)
 
 #Definimos la resolución de pantalla a 600x600
 tablero = pygame.display.set_mode([600, 600])
+# Cargamos la imagen de fondo
+fondoTablero = pygame.image.load('fondoB.png').convert()
 # Recuperamos el tablero de juego para poder operar con él
 tableroJuego = pygame.Surface(tablero.get_size())
 
@@ -83,13 +85,15 @@ puntuacion = 0
 temporizador = 0
 iniciado = False
 vidas = 3
+fps = 60
 
 while not exitJuego:
     # Definimos el jugo a 30 fps
-    reloj.tick(30)
+    reloj.tick(fps)
 
     # Definimos el color fondo del tablero de juego
-    tablero.fill(NEGRO)
+    #tablero.fill(NEGRO)
+    tablero.blit(fondoTablero, [0, 0])
 
     # Controlamos los eventos para detectar el fin de juego
     for accion in pygame.event.get():
@@ -112,7 +116,7 @@ while not exitJuego:
     else:
         valorPortero.actualizar()
         if iniciado:
-            if valorPelota.actualizar():
+            if valorPelota.actualizar(puntuacion):
                 if vidas > 0:
                     vidas -= 1
                     valorPelota.posicionar()
@@ -147,7 +151,7 @@ while not exitJuego:
         alertaPuntuacion_posicion.top = 10
         
         # Posicionamos el área para informar del tiempo consumido
-        tiempo = temporizador // 30
+        tiempo = temporizador // fps
         alertaTemporizador = fuenteJuego.render('Tiempo: {0:02}:{1:02}'.format(tiempo // 60, tiempo % 60), True , BLANCO)
         alertaTemporizador_posicion = alertaTemporizador.get_rect(centerx = tableroJuego.get_width() * 3 / 4)
         alertaTemporizador_posicion.top = 10
@@ -160,7 +164,7 @@ while not exitJuego:
     # Dibujamos los elementos visuales en la pantalla
     spTotal.draw(tablero)
     #Actualizamos el tablero de juego con los nuevos elementos visuales
-    pygame.display.update()
+    pygame.display.flip()
 # Salimos del entorno
 pygame.quit()
 

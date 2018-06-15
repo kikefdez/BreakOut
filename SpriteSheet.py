@@ -10,7 +10,6 @@ class SpriteSheet(object):
     def cargarImagen(self, posX, posY, ancho, alto):
         # Creamos una nueva imagen con las dimensiones correctas
         imageRespuesta = pygame.Surface([ancho, alto]).convert()
-
         # Cargamos el correspondiente componente gráfico
         imageRespuesta.blit(self.sprite_sheet, (0, 0), (posX, posY, ancho, alto))
 

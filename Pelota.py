@@ -6,7 +6,7 @@ from SpriteSheet import *
 from Portero import *
 
 # Definimos constante de la velocidad en número de píxeles que avanza por cada ciclo
-VELOCIDAD = 10
+VELOCIDAD = 5
 
 # Definimos las constantes de dimensiones de alto y largo que tendrá la pelota
 LARGO = 16
@@ -37,7 +37,8 @@ class Pelota(pygame.sprite.Sprite):
         # Definimos el color de fondo del objeto Ladrillo
         # self.image.fill(BLANCO)
         sprites = SpriteSheet("breakout_sprites.png")
-        self.image = sprites.cargarImagen(160, 200, 16, 16 )
+        self.image = sprites.cargarImagen(160, 200, 16, 16)
+        self.image.set_colorkey(pygame.Color(0, 0, 0))
 
         # Obtenemos el rectangulo correspondiente al objeto con la configuración anterior
         self.rect = self.image.get_rect()
@@ -57,13 +58,13 @@ class Pelota(pygame.sprite.Sprite):
         # Definimos el comportamiento que tendrá la pelota cuando se produzca un rebote bien en un ladrillo o bien en el portero
         self.direccion = (180 - self.direccion) % 360
         self.direccion -= diferencia
-    def actualizar(self):
+    def actualizar(self, puntuacion):
         # Definimos el comportamiento que tendrá la pelota - seguir con la trayectoria definida tras un rebote
         direccionRadianes = math.radians(self.direccion)
 
         # Calculamos la posición de la pelota en función de la trayectoria y la velocidad
-        self.coordX += self.velocidadPelota * math.sin(direccionRadianes)
-        self.coordY -= self.velocidadPelota * math.cos(direccionRadianes)
+        self.coordX += (VELOCIDAD + puntuacion // 100) * math.sin(direccionRadianes)
+        self.coordY -= (VELOCIDAD + puntuacion // 100) * math.cos(direccionRadianes)
 
         #pygame.draw.lines(pygame.display.get_surface(), ROJO, False, [(self.coordX + 5, self.coordY + 5), ((self.coordX + 5 + (100 * math.sin(direccionRadianes))), (self.coordY + 5 - (100 * math.cos(direccionRadianes))))], 1)
 
